@@ -1,1 +1,24 @@
-env/
+# Python
+__pycache__/
+*.py[cod]
+*.so
+
+# Environment variables file
+.env
+
+# Django specific
+*.log
+*.pot
+*.pyc
+*.mo
+*.pyo
+*.coverage
+.coverage.*
+.cache
+*.sqlite3
+
+# If using PyCharm
+.idea/
+
+# If using Visual Studio Code
+.vscode/
