@@ -399,7 +399,7 @@ function saveTasks() {
         success: function(response) {
             showMessage('notes-message', 'Note saved successfully!', 'success');
             cancelNoteForm();
-            loadNotes();
+            loadTasks();
         },
         error: function(xhr) {
             if (xhr.status === 401) {
@@ -515,7 +515,7 @@ function deletetasks(noteId) {
         },
         success: function() {
             showMessage('notes-message', 'Note deleted successfully!', 'success');
-            loadNotes();
+            loadTasks();
         },
         error: function(xhr) {
             if (xhr.status === 401) {
