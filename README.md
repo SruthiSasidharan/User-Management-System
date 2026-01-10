@@ -68,6 +68,6 @@ Run server
 
 Server Ports:
 
-    Frontend: http://127.0.0.1:8000/
-    API Base: http://127.0.0.1:8000/api/
-    Admin Panel: http://127.0.0.1:8000/admin/
+    Frontend: https://user-management-system-web.onrender.com/
+    API Base: https://user-management-system-web.onrender.com/api/
+    Admin Panel: https://user-management-system-web.onrender.com/admin/
