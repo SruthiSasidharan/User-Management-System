@@ -8,6 +8,7 @@ let refreshToken = localStorage.getItem('refreshToken');
 function checkAuthStatus() {
     if (accessToken) {
         showAuthenticatedView();
+        showProfile(); // default page
         loadProfile();
         loadTasks();
     } else {
@@ -17,18 +18,16 @@ function checkAuthStatus() {
 
 function showAuthenticatedView() {
     $('#auth-section').addClass('hidden');
-    $('#profile-section').removeClass('hidden');
-    $('#notes-section').removeClass('hidden');
     $('#user-info').removeClass('hidden');
 }
 
-function showUnauthenticatedView()
-{
+function showUnauthenticatedView() {
     $('#auth-section').removeClass('hidden');
     $('#profile-section').addClass('hidden');
     $('#notes-section').addClass('hidden');
     $('#user-info').addClass('hidden');
 }
+
 
 //controlling page sections end
 
@@ -526,4 +525,31 @@ function deletetasks(noteId) {
             }
         }
     });
+}
+
+
+//page fix
+function hideAllSections() {
+    $('#profile-section').addClass('hidden');
+    $('#notes-section').addClass('hidden');
+    $('#reset-password-section').addClass('hidden');
+}
+
+function showProfile() {
+    hideAllSections();
+    $('#profile-section').removeClass('hidden');
+    $('#profile-main').removeClass('hidden');
+    $('#reset-password-section').addClass('hidden');
+}
+
+function showResetPassword() {
+    hideAllSections();
+    $('#profile-section').addClass('hidden');
+    $('#profile-main').addClass('hidden');
+    $('#reset-password-section').removeClass('hidden');
+}
+
+function showTasks() {
+    hideAllSections();
+    $('#notes-section').removeClass('hidden');
 }

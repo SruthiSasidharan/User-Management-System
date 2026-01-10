@@ -216,7 +216,11 @@
         <div class="header">
             <h3>User Management System</h3>
             <div id="user-info" class="hidden">
-                <span id="username-display"></span>
+                <span id="username-display" style="margin-right:15px;"></span>
+
+                <button class="btn btn-primary" onclick="showProfile()">Profile</button>
+                <button class="btn btn-success" onclick="showResetPassword()">Reset Password</button>
+                <button class="btn btn-secondary" onclick="showTasks()">Tasks</button>
                 <button class="btn btn-secondary" onclick="logout()">Logout</button>
             </div>
         </div>
@@ -347,25 +351,29 @@
                 </form>
             </div>
 
-            <div style="margin-top: 30px;">
-                <h3 class="section-title">Reset Password</h3>
-                <form id="passwordForm">
-                    <div class="form-group">
-                        <label>Old Password</label>
-                        <input type="password" id="old-password" required>
-                    </div>
-                    <div class="form-group">
-                        <label>New Password</label>
-                        <input type="password" id="new-password" required>
-                    </div>
-                    <div class="form-group">
-                        <label>Confirm New Password</label>
-                        <input type="password" id="new-password2" required>
-                    </div>
-                    <button type="submit" class="btn btn-primary">Reset Password</button>
-                </form>
-            </div>
+
         </div>
+
+<!--        reset password section-->
+        <div id="reset-password-section" class="hidden" style="background: #f8f9fa; padding: 20px; border-radius: 8px; margin-bottom: 20px;">
+    <h3 class="section-title">Reset Password</h3>
+    <form id="passwordForm">
+        <div class="form-group">
+            <label>Old Password</label>
+            <input type="password" id="old-password" required>
+        </div>
+        <div class="form-group">
+            <label>New Password</label>
+            <input type="password" id="new-password" required>
+        </div>
+        <div class="form-group">
+            <label>Confirm New Password</label>
+            <input type="password" id="new-password2" required>
+        </div>
+        <button type="submit" class="btn btn-primary">Reset Password</button>
+    </form>
+</div>
+
 
         <!-- Notes Section -->
         <div id="notes-section" class="notes-section hidden">
