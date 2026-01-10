@@ -369,13 +369,13 @@
 
         <!-- Notes Section -->
         <div id="notes-section" class="notes-section hidden">
-            <h2 class="section-title">Notes Management</h2>
+            <h2 class="section-title">Tasks Management</h2>
             <div id="notes-message"></div>
 
-            <button class="btn btn-primary" onclick="showNoteForm()" style="margin-bottom: 20px;">Create New Note</button>
+            <button class="btn btn-primary" onclick="showNoteForm()" style="margin-bottom: 20px;">Create New Tasks</button>
 
             <div id="note-form" class="hidden" style="background: #f8f9fa; padding: 20px; border-radius: 8px; margin-bottom: 20px;">
-                <h3 id="note-form-title">Create Note</h3>
+                <h3 id="note-form-title">Create Tasks</h3>
                 <form id="noteForm">
                     <input type="hidden" id="note-id">
                     <div class="form-group">
@@ -390,7 +390,7 @@
                         <label>Attachment</label>
                         <input type="file" id="note-attachment">
                     </div>
-                    <button type="submit" class="btn btn-success">Save Note</button>
+                    <button type="submit" class="btn btn-success">Save Tasks</button>
                     <button type="button" class="btn btn-secondary" onclick="cancelNoteForm()">Cancel</button>
                 </form>
             </div>

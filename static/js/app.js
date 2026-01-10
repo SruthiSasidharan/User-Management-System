@@ -9,7 +9,7 @@ function checkAuthStatus() {
     if (accessToken) {
         showAuthenticatedView();
         loadProfile();
-//        loadNotes();
+        loadTasks();
     } else {
         showUnauthenticatedView();
     }
@@ -73,7 +73,6 @@ function escapeHtml(text) {
 $(document).ready(function() {
     checkAuthStatus();
 
-//    register
     $('#registerForm').on('submit', function(e) {
         e.preventDefault();
         register();
@@ -92,6 +91,11 @@ $(document).ready(function() {
      $('#passwordForm').on('submit', function(e) {
         e.preventDefault();
         resetPassword();
+    });
+
+     $('#noteForm').on('submit', function(e) {
+        e.preventDefault();
+        saveTasks();
     });
 
 
@@ -344,3 +348,182 @@ function logout() {
 
 //profile update end
 
+//Tasks sectiion starts
+function showNoteForm() {
+    $('#note-form').removeClass('hidden');
+    $('#note-form-title').text('Create Task');
+    $('#noteForm')[0].reset();
+    $('#note-id').val('');
+}
+
+
+function saveTasks() {
+    const noteId = $('#note-id').val();
+    const attachment = $('#note-attachment')[0].files[0];
+    const hasFile = attachment !== undefined;
+
+    // Use FormData if there's a file, otherwise use JSON
+    let data, contentType, processData;
+
+    if (hasFile || !noteId) {
+        // Use FormData for file uploads or new notes
+        data = new FormData();
+        data.append('title', $('#note-title').val());
+        data.append('description', $('#note-description').val());
+        if (attachment) {
+            data.append('attachment', attachment);
+        }
+        contentType = false;
+        processData = false;
+    } else {
+        // Use JSON for updates without files
+        data = JSON.stringify({
+            title: $('#note-title').val(),
+            description: $('#note-description').val()
+        });
+        contentType = 'application/json';
+        processData = true;
+    }
+
+    const url = noteId ?
+        `${API_BASE_URL}/tasks/${noteId}/` :
+        `${API_BASE_URL}/tasks/`;
+    const method = noteId ? 'PATCH' : 'POST';
+
+    const ajaxOptions = {
+        url: url,
+        method: method,
+        headers: {
+            'Authorization': `Bearer ${accessToken}`
+        },
+        data: data,
+        success: function(response) {
+            showMessage('notes-message', 'Note saved successfully!', 'success');
+            cancelNoteForm();
+            loadNotes();
+        },
+        error: function(xhr) {
+            if (xhr.status === 401) {
+                handleUnauthorized();
+            } else {
+                const error = xhr.responseJSON ?
+                    JSON.stringify(xhr.responseJSON) :
+                    'Failed to save note';
+                showMessage('notes-message', error, 'error');
+            }
+        }
+    };
+
+    if (contentType !== undefined) {
+        ajaxOptions.contentType = contentType;
+    }
+    if (processData !== undefined) {
+        ajaxOptions.processData = processData;
+    }
+
+    $.ajax(ajaxOptions);
+}
+
+function loadTasks() {
+    $.ajax({
+        url: `${API_BASE_URL}/tasks/`,
+        method: 'GET',
+        headers: {
+            'Authorization': `Bearer ${accessToken}`
+        },
+        success: function(response) {
+            displayTasks(response.results || response);
+        },
+        error: function(xhr) {
+            if (xhr.status === 401) {
+                handleUnauthorized();
+            } else {
+                showMessage('notes-message', 'Failed to load notes', 'error');
+            }
+        }
+    });
+}
+
+function displayTasks(notes) {
+    const grid = $('#notes-grid');
+    grid.empty();
+
+    if (notes.length === 0) {
+        grid.html('<p>No notes found. Create your first note!</p>');
+        return;
+    }
+
+    notes.forEach(function(note) {
+        const card = $(`
+            <div class="note-card">
+                <h3>${escapeHtml(note.title)}</h3>
+                <p>${escapeHtml(note.description || 'No description')}</p>
+                <div class="note-meta">
+                    Created: ${new Date(note.created_at).toLocaleString()}<br>
+                    Modified: ${new Date(note.modified_at).toLocaleString()}
+                </div>
+                ${note.attachment_url ? `<p><a href="${note.attachment_url}" target="_blank">View Attachment</a></p>` : ''}
+                <div class="note-actions">
+                    <button class="btn btn-primary" onclick="edittasks(${note.id})">Edit</button>
+                    <button class="btn btn-danger" onclick="deletetasks(${note.id})">Delete</button>
+                </div>
+            </div>
+        `);
+        grid.append(card);
+    });
+}
+
+function cancelNoteForm() {
+    $('#note-form').addClass('hidden');
+    $('#noteForm')[0].reset();
+    $('#note-id').val('');
+}
+
+function edittasks(noteId) {
+    $.ajax({
+        url: `${API_BASE_URL}/tasks/${noteId}/`,
+        method: 'GET',
+        headers: {
+            'Authorization': `Bearer ${accessToken}`
+        },
+        success: function(response) {
+            $('#note-id').val(response.id);
+            $('#note-title').val(response.title);
+            $('#note-description').val(response.description || '');
+            $('#note-form-title').text('Edit Tasks');
+            $('#note-form').removeClass('hidden');
+        },
+        error: function(xhr) {
+            if (xhr.status === 401) {
+                handleUnauthorized();
+            } else {
+                showMessage('notes-message', 'Failed to load note', 'error');
+            }
+        }
+    });
+}
+
+function deletetasks(noteId) {
+    if (!confirm('Are you sure you want to delete this note?')) {
+        return;
+    }
+
+    $.ajax({
+        url: `${API_BASE_URL}/tasks/${noteId}/`,
+        method: 'DELETE',
+        headers: {
+            'Authorization': `Bearer ${accessToken}`
+        },
+        success: function() {
+            showMessage('notes-message', 'Note deleted successfully!', 'success');
+            loadNotes();
+        },
+        error: function(xhr) {
+            if (xhr.status === 401) {
+                handleUnauthorized();
+            } else {
+                showMessage('notes-message', 'Failed to delete note', 'error');
+            }
+        }
+    });
+}

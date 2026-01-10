@@ -19,7 +19,7 @@ class CustomUser(AbstractUser):
     ]
     gender = models.CharField(max_length=1, choices=GENDER_CHOICES, null=True,blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateTimeField(null=True,blank=True)
+    updated_at = models.DateTimeField(null=True,blank=True,auto_now=True)
     full_name = models.CharField(max_length=500, null=True,blank=True)
     def __str__(self):
         return self.username

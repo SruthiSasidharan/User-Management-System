@@ -9,7 +9,7 @@ class Tasks(models.Model):
     attachment = models.FileField(upload_to="attachments/",
         null=True, blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateTimeField(null=True,blank=True)
+    updated_at = models.DateTimeField(null=True,blank=True,auto_now=True)
 
     def __str__(self):
         return self.title
