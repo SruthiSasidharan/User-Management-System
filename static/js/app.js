@@ -1,6 +1,6 @@
-//const API_BASE_URL = 'http://127.0.0.1:8000/api';
+const API_BASE_URL = 'http://127.0.0.1:8000/api';
 
-const API_BASE_URL = 'https://user-management-system-web.onrender.com/api';
+//const API_BASE_URL = 'https://user-management-system-web.onrender.com/api';
 let accessToken = localStorage.getItem('accessToken');
 let refreshToken = localStorage.getItem('refreshToken');
 
@@ -239,11 +239,11 @@ function editProfile() {
 
 function updateProfile() {
     const data = {
-        full_name: $('#edit-fullname').val(),
-        date_of_birth: $('#edit-dob').val(),
-        gender: $('#edit-gender').val(),
-        mobile_number: $('#edit-mobile').val(),
-        address: $('#edit-address').val()
+        full_name: $('#profile-fullname').val(),
+        date_of_birth: $('#profile-dob').val(),
+        gender: $('#profile-gender').val(),
+        mobile_number: $('#profile-mobile').val(),
+        address: $('#profile-address').val()
     };
 
     $.ajax({
@@ -460,7 +460,7 @@ function displayTasks(notes) {
                 <p>${escapeHtml(note.description || 'No description')}</p>
                 <div class="note-meta">
                     Created: ${new Date(note.created_at).toLocaleString()}<br>
-                    Modified: ${new Date(note.modified_at).toLocaleString()}
+                    Modified: ${new Date(note.updated_at).toLocaleString()}
                 </div>
                 ${note.attachment_url ? `<p><a href="${note.attachment_url}" target="_blank">View Attachment</a></p>` : ''}
                 <div class="note-actions">

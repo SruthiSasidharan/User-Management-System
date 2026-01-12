@@ -279,26 +279,27 @@
             <div id="profile-message"></div>
 
             <div id="profile-view">
+                 <form id="profileForm">
                 <div class="form-group">
                     <label>Username</label>
                     <input type="text" id="profile-username" readonly>
                 </div>
                 <div class="form-group">
                     <label>Email</label>
-                    <input type="email" id="profile-email" readonly>
+                    <input type="email" id="profile-email">
                 </div>
                 <div class="form-group">
                     <label>Full Name</label>
-                    <input type="text" id="profile-fullname" readonly>
+                    <input type="text" id="profile-fullname">
                 </div>
                 <div class="form-row">
                     <div class="form-group">
                         <label>Date of Birth</label>
-                        <input type="date" id="profile-dob" readonly>
+                        <input type="date" id="profile-dob">
                     </div>
                     <div class="form-group">
                         <label>Gender</label>
-                        <select id="profile-gender" disabled>
+                        <select id="profile-gender">
                             <option value="">Select Gender</option>
                             <option value="M">Male</option>
                             <option value="F">Female</option>
@@ -308,13 +309,17 @@
                 </div>
                 <div class="form-group">
                     <label>Mobile Number</label>
-                    <input type="text" id="profile-mobile" readonly>
+                    <input type="text" id="profile-mobile">
                 </div>
                 <div class="form-group">
                     <label>Address</label>
-                    <textarea id="profile-address" readonly></textarea>
+                    <textarea id="profile-address"></textarea>
                 </div>
-                <button class="btn btn-primary" onclick="editProfile()">Edit Profile</button>
+
+                     <button type="submit" class="btn btn-success">Save Changes</button>
+                    <button type="button" class="btn btn-secondary" onclick="cancelEdit()">Cancel</button>
+<!--                <button class="btn btn-primary" onclick="editProfile()">Edit Profile</button>-->
+            </form>
             </div>
 
             <div id="profile-edit" class="hidden">
