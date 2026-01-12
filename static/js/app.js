@@ -1,4 +1,6 @@
-const API_BASE_URL = 'http://127.0.0.1:8000/api';
+//const API_BASE_URL = 'http://127.0.0.1:8000/api';
+const API_BASE_URL = 'https://sruthi.pythonanywhere.com/api';
+
 
 //const API_BASE_URL = 'https://user-management-system-web.onrender.com/api';
 let accessToken = localStorage.getItem('accessToken');
