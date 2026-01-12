@@ -68,6 +68,6 @@ Run server
 
 Server Ports:
 
-    Frontend: https://user-management-system-web.onrender.com/
-    API Base: https://user-management-system-web.onrender.com/api/
-    Admin Panel: https://user-management-system-web.onrender.com/admin/
+    Frontend: https://sruthi.pythonanywhere.com/
+    API Base: https://sruthi.pythonanywhere.com/api/
+    Admin Panel: https://sruthi.pythonanywhere.com/admin/
